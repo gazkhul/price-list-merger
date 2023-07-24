@@ -2,14 +2,15 @@ import csv
 
 import pandas as pd
 
+from core.constants import ENCODINGS_LIST
+
 
 def read_csv_file(file_path):
     """
     Reads a CSV file using pandas. Automatically detects encoding,
     separator, and set quote character.
     """
-    encodings = ["utf-8", "cp1251"]
-    for encoding in encodings:
+    for encoding in ENCODINGS_LIST:
         try:
             with open(file_path, "r", encoding=encoding) as file:
                 dialect = csv.Sniffer().sniff(file.read(2048))
