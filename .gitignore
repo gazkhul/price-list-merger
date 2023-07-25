@@ -163,3 +163,5 @@ cython_debug/
 
 src/price_0.csv
 src/price_1.csv
+src/price_2.csv
+src/price_3.csv

@@ -13,8 +13,8 @@ pandas = "^2.0.3"
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.3.3"
 isort = "^5.12.0"
-flake8-pyproject = "^1.2.3"
 flake8 = "^6.0.0"
+flake8-pyproject = "^1.2.3"
 
 [build-system]
 requires = ["poetry-core"]
@@ -23,7 +23,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.isort]
 default_section = "THIRDPARTY"
 sections = ["STDLIB", "FIRSTPARTY", "THIRDPARTY", "LOCALFOLDER"]
-known_local_folder = ["src", "bot", "core"]
+known_local_folder = ["src", "db", "core"]
 lines_after_imports = "2"
 skip = ["tests", ".venv", "venv"]
 line_length = "79"
@@ -33,7 +33,7 @@ use_parentheses = "true"
 
 [tool.flake8]
 max-line-length = "79"
-paths = ["./bot", "./core", "./src"]
+paths = ["./db", "./core", "./src"]
 max-complexity = "10"
 exclude = ["tests", ".venv", "venv"]
 per-file-ignores = [
