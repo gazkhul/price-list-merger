@@ -5,9 +5,12 @@ import pandas as pd
 from pandas import DataFrame
 
 from core.constants import (
+    COLUMNS_ORDER,
     DOUBLEQUOTE,
     ENCODINGS_LIST,
+    TECHNOSTOR_COLUMNS_TO_RENAME,
     TECHNOSTOR_DROP_LIST,
+    VSTROYKA_SOLO_COLUMNS_TO_RENAME,
     VSTROYKA_SOLO_DROP_LIST,
 )
 
@@ -56,40 +59,42 @@ def drop_unwanted_columns(
     return df1, df2
 
 
-def main(*args):
+def rename_columns(
+    df1: DataFrame, df2: DataFrame
+) -> tuple[DataFrame, DataFrame]:
+    df1 = df1.rename(columns=TECHNOSTOR_COLUMNS_TO_RENAME)
+    df2 = df2.rename(columns=VSTROYKA_SOLO_COLUMNS_TO_RENAME)
+
+    return df1, df2
+
+
+def concatenate_lists(*dataframes: DataFrame):
+    df_list = []
+    for df in dataframes:
+        for col in COLUMNS_ORDER:
+            if col not in df.columns:
+                df[col] = 0
+        df[COLUMNS_ORDER]
+        df_list.append(df)
+
+    combined_df = pd.concat(df_list).drop_duplicates(subset=["Наименование"])
+
+    return combined_df
+
+
+def main(*args: tuple[str, str]):
     df1 = read_csv_file(args[0])
     df2 = read_csv_file(args[1])
 
     df1, df2 = drop_unwanted_columns(df1, df2)
 
-    print(df1)
+    df1, df2 = rename_columns(df1, df2)
 
-    # df1 = df1.rename(
-    #     columns={
-    #         "Артикул": "Код артикула",
-    #         "Категория": "Тип товаров",
-    #         "Производитель": "Производитель",
-    #         "Товар": "Наименование",
-    #         "Цена": "Цена",
-    #         "РРЦ": "РРЦ",
-    #         "Москва": "В наличии",
-    #         "Модель": "Модель",
-    #         "Изображение": "Изображения товаров",
-    #     }
-    # )
-    # df2 = df2.rename(
-    #     columns={
-    #         "Артикул": "Код артикула",
-    #         "Категория": "Тип товаров",
-    #         "Бренд": "Производитель",
-    #         "Наименование": "Наименование",
-    #         "Цена": "Цена",
-    #         "Раздел": "В наличии",
-    #         "Модель": "Модель",
-    #         "Фото": "Изображения товаров",
-    #         "РРЦ": "РРЦ",
-    #     }
-    # )
+    df = concatenate_lists(df1, df2)
+
+    print(df)
+
+    # df.to_csv("merged.csv", index=False)
 
 
 if __name__ == "__main__":
