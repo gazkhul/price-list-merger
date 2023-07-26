@@ -15,6 +15,11 @@ from core.constants import (
 )
 
 
+# from tqdm import tqdm
+# tqdm.pandas(desc="qqqqqqqq")
+# .progress_apply(lambda x: pd.Timestamp).reset_index()
+
+
 def read_csv_file(file_path: str) -> None | DataFrame:
     """
     Reads a CSV file using pandas. Automatically detects encoding,
@@ -68,7 +73,7 @@ def rename_columns(
     return df1, df2
 
 
-def concatenate_lists(*dataframes: DataFrame):
+def concatenate_dataframes(*dataframes: DataFrame):
     df_list = []
     for df in dataframes:
         for col in COLUMNS_ORDER:
@@ -90,11 +95,9 @@ def main(*args: tuple[str, str]):
 
     df1, df2 = rename_columns(df1, df2)
 
-    df = concatenate_lists(df1, df2)
+    df = concatenate_dataframes(df1, df2)
 
-    print(df)
-
-    # df.to_csv("merged.csv", index=False)
+    df.to_csv("merged.csv", index=False)
 
 
 if __name__ == "__main__":
