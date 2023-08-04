@@ -1,3 +1,6 @@
+import time
+
+
 ENCODINGS_LIST = ["utf-8", "cp1251"]
 DOUBLEQUOTE = '"'
 TECHNOSTOR_DROP_LIST = [
@@ -51,3 +54,11 @@ COLUMNS_ORDER = [
     "Изображения товаров",
     "РРЦ",
 ]
+PRICE = "Цена"
+RRP = "РРЦ"
+PRODUCT_NAME = "Наименование"
+PRODUCT_TYPE = "Тип товаров"
+PRODUCT_PHOTO = "Изображения товаров"
+CURRENT_DATE = time.strftime("%d-%m-%Y")
+OUTPUT_FILE = f"merged_price_{CURRENT_DATE}.csv"
+EMPTY_PHOTO = "https://technostor.ru/images/products/oynw/0.jpeg"

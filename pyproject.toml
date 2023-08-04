@@ -9,6 +9,8 @@ readme = "README.md"
 python = "^3.11"
 pandas = "^2.0.3"
 tqdm = "^4.65.0"
+numpy = "^1.25.1"
+sqlalchemy = "^2.0.19"
 
 
 [tool.poetry.group.dev.dependencies]
